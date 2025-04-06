@@ -94,7 +94,7 @@ function ResponsiveDrawer(props) {
             <List>
                 {pages.map((obj, index) => (
                     <div key={index}>
-                        <ListItem sx={{ background: obj.route === currentPath ? "#E1E1E2" : '' }} disablePadding>
+                        <ListItem sx={{ background: obj.route === currentPath ? "#E1E1E2" : '', borderRadius: '5px' }} disablePadding>
                             <ListItemButton onClick={() => obj.children ? handleToggle(obj.name) : navigate(obj.route)}>
                                 <ListItemIcon sx={{ minWidth: "35px", fontSize: "20px" }}>{obj.icon}</ListItemIcon>
                                 <ListItemText primary={obj.name} />
@@ -126,7 +126,7 @@ function ResponsiveDrawer(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", backgroundColor: "#E1E1E2" }}>
             <CssBaseline />
 
             <AppBar
@@ -219,8 +219,9 @@ function ResponsiveDrawer(props) {
                     onClose={handleDrawerToggle}
                     ModalProps={{ keepMounted: true }}
                     sx={{
+
                         display: { xs: "block", sm: "none" },
-                        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+                        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth }
                     }}
                 >
                     {drawer}
@@ -229,7 +230,7 @@ function ResponsiveDrawer(props) {
                     variant="permanent"
                     sx={{
                         display: { xs: "none", sm: "block" },
-                        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+                        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth, padding: "5px !important", },
                     }}
                     open
                 >
