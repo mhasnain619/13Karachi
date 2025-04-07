@@ -20,16 +20,12 @@ import jawan from '../../assets/13karachi.png';
 import { FaUser } from "react-icons/fa";
 import { MdContactPage, MdExpandLess, MdExpandMore, MdFeed, MdOutlineAdminPanelSettings } from "react-icons/md";
 import './Dashboard.css'
-import { Avatar, Button, Collapse, Menu, MenuItem, Tooltip } from '@mui/material';
-
+import { Avatar, useMediaQuery, Button, Collapse, Menu, MenuItem, Tooltip } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { PiExamFill, PiStudentBold } from "react-icons/pi";
-import { FaChalkboardTeacher } from "react-icons/fa";
-import { MdOutlineSubject } from "react-icons/md";
-import { FaBook } from "react-icons/fa";
-import { BiSolidSchool } from "react-icons/bi";
-import { SiGoogleclassroom } from "react-icons/si";
 import TextField from '@mui/material/TextField';
+import DashboardPage from "../../Pages/DashboardPage/DashboardPage";
 
 
 // import './Layout.css'
@@ -126,7 +122,8 @@ function ResponsiveDrawer(props) {
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
-
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <Box sx={{ display: "flex", backgroundColor: "#E1E1E2", padding: "5px" }}>
             <CssBaseline />
@@ -262,67 +259,18 @@ function ResponsiveDrawer(props) {
                     alignItems: 'center',
                     flexGrow: 1,
                     p: 1,
-                    mt: 3,
+                    mt: 2,
                     width: { sm: `calc(100% - ${drawerWidth}px)` },
                 }}
             >
 
-                {document.location.pathname === '/' && <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '5px', py: 6, mt: 5, backgroundColor: "#FFFFFF", p: 2, borderRadius: "5px" }}>
-                    <h3>
-                        Welcome to the Learning Management System (LMS)
-                    </h3>
-
-                    <p>
-                        This platform is designed to streamline and enhance the management of educational institutions.
-                    </p>
-                    <h3>
-                        Key Features :
-                    </h3>
-                    <h3>
-                        Student Management :
-                    </h3>
-                    <p>
-                        Register students, maintain student lists, and manage their profiles efficiently.
-                    </p>
-
-                    <h3>
-                        Teacher Management :
-                    </h3>
-                    <p>
-                        Add new teachers, update information, and keep track of their assigned classes and subjects.
-                    </p>
-                    <h3>
-                        Subjects & Syllabus :
-                    </h3>
-                    <p>
-                        Organize subject details and syllabus structures to ensure a structured learning experience.
-                    </p>
-                    <h3>
-                        School & Classes :
-                    </h3>
-                    <p>
-                        Manage school information, class structures, and student-teacher assignments.
-                    </p>
-                    <h3>
-                        Admissions & Fees :
-                    </h3>
-                    <p>
-                        Handle student admissions, fee collection, and payment tracking.
-                    </p>
-                    <h3>
-                        Examinations :
-                    </h3>
-                    <p>
-                        Schedule and manage exams, results, and grading systems.
-                    </p>
-                    <p>
-                        This LMS ensures seamless administrative operations and improves overall academic management.
-                    </p>
-
-                </Box>}
-
-                {/* Render nested routes (for dynamic content) */}
-
+                {document.location.pathname === '/' &&
+                    <Box sx={{
+                        width: '100%',
+                        mt: 5,
+                    }}>
+                        <DashboardPage />
+                    </Box>}
                 <Outlet />
             </Box>
         </Box>
