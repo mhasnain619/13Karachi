@@ -6,7 +6,17 @@ import HomeIcon from '@mui/icons-material/Home';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import GrainIcon from '@mui/icons-material/Grain';
 import { styled } from '@mui/material/styles';
-import { ArrowDownward } from "@mui/icons-material";
+import SettingsIcon from '@mui/icons-material/Settings';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    IconButton,
+} from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
     ...theme.typography.body2,
@@ -31,6 +41,8 @@ import {
     Tooltip,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
+import RecentOrders from '../../Components/RecentOrders/RecentOrders';
+import TopTransictions from '../../Components/TopTransitions/TopTransiction';
 // Register necessary Chart.js components
 ChartJS.register(
     CategoryScale,
@@ -78,15 +90,56 @@ const chartOptions = {
     },
 };
 
+// table data
+
+const orders = [
+    {
+        productName: 'Camera Lens',
+        productBrand: 'Canon Camera',
+        customer: 'Brooklyn Simmons',
+        status: 'Succeed',
+    },
+    {
+        productName: 'Black Dress',
+        productBrand: 'Shasmi',
+        customer: 'Savannah Nguyen',
+        status: 'Waiting',
+    },
+    {
+        productName: 'Argan Oil',
+        productBrand: 'Moroccan',
+        customer: 'Ronald Richards',
+        status: 'Succeed',
+    },
+    {
+        productName: 'Parfum',
+        productBrand: 'Bella Vita',
+        customer: 'Marvin McKinney',
+        status: 'Canceled',
+    },
+];
+const getStatusColor = (status) => {
+    switch (status) {
+        case 'Succeed':
+            return 'success.main';
+        case 'Waiting':
+            return 'warning.main';
+        case 'Canceled':
+            return 'error.main';
+        default:
+            return 'text.primary';
+    }
+}
 
 const DashboardPage = () => {
     return (
         <>
+            {/* breadcrumb */}
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center', p: 2,
-                height: '50px', backgroundColor: "#E1E1E2", width: '100%'
+                height: '50px', backgroundColor: "#F5F5F5", width: '100%'
             }}>
                 <h3>Dashboard</h3>
                 <Box role="presentation" onClick={handleClick}>
@@ -118,10 +171,11 @@ const DashboardPage = () => {
                     </Breadcrumbs>
                 </Box>
             </Box>
+            {/* total sale and summary */}
             <Box sx={{ flexGrow: 1, }}>
                 <Grid container spacing={2}>
                     {/* Total Sale Chart */}
-                    <Grid item xs={12} md={6}>
+                    <Grid sx={{ p: 1 }} item xs={12} md={6}>
                         <Item>
                             <Grid container spacing={2}>
                                 {/* Left Content */}
@@ -130,7 +184,7 @@ const DashboardPage = () => {
                                         <Typography fontWeight="bold" textAlign="start">
                                             Total Sale
                                         </Typography>
-                                        <Typography fontWeight="bold" variant="body2" color="text.secondary" textAlign="start">
+                                        <Typography variant="body2" color="text.secondary" textAlign="start">
                                             Jan 1, 2022 - Jun 30, 2024
                                         </Typography>
 
@@ -161,16 +215,21 @@ const DashboardPage = () => {
                             </Grid>
                         </Item>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid sx={{ p: 1 }} item xs={12} md={6}>
                         <Item>
                             <Box>
-                                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Typography textAlign="start" fontWeight="bold">
-                                        Summary
-                                    </Typography>
-                                    <Typography textAlign="start" variant="body2" color="text.secondary">
-                                        Jan 1, 2024 - Jun 30, 2024
-                                    </Typography>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Box>
+                                        <Typography textAlign="start" fontWeight="bold">
+                                            Summary
+                                        </Typography>
+                                        <Typography textAlign="start" variant="body2" color="text.secondary">
+                                            Jan 1, 2024 - Jun 30, 2024
+                                        </Typography>
+                                    </Box>
+                                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#eaeaea', padding: '2px', borderRadius: '50px' }}>
+                                        <SettingsIcon fontSize='small' />
+                                    </Box>
                                 </Box>
 
                                 <Grid container spacing={2} mt={1}>
@@ -214,6 +273,36 @@ const DashboardPage = () => {
                                     </Grid>
                                 </Grid>
                             </Box>
+                        </Item>
+                    </Grid>
+                </Grid>
+            </Box>
+            {/* recent orders and customer growth */}
+            <Box sx={{ my: 3 }}>
+                <Grid container spacing={2}>
+                    <Grid sx={{ p: 1 }} item xs={12} md={7}>
+                        <Item>
+                            <RecentOrders />
+                        </Item>
+                    </Grid>
+                    <Grid sx={{ p: 1 }} item xs={12} md={5}>
+                        <Item>
+                        </Item>
+                    </Grid>
+                </Grid>
+            </Box>
+
+            {/* // top transiction and weekly users */}
+            <Box sx={{ my: 3 }}>
+                <Grid container spacing={2}>
+                    <Grid sx={{ p: 1 }} xs={12} md={7}>
+                        <Item>
+                            <TopTransictions />
+                        </Item>
+                    </Grid>
+                    <Grid sx={{ p: 1 }} item xs={12} md={5}>
+                        <Item>
+
                         </Item>
                     </Grid>
                 </Grid>

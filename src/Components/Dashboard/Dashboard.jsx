@@ -125,7 +125,7 @@ function ResponsiveDrawer(props) {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     return (
-        <Box sx={{ display: "flex", backgroundColor: "#E1E1E2", padding: "5px" }}>
+        <Box sx={{ display: "flex", backgroundColor: "#F5F5F5", padding: "5px" }}>
             <CssBaseline />
 
             <AppBar
