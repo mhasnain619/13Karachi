@@ -3,7 +3,7 @@ import './home.css'
 
 const Home = () => {
     return (
-        <Box className='mainBox' sx={{ py: 6 }}>
+        <Box className='mainBox' sx={{ mt: 5, backgroundColor: "#FFFFFF", p: 2, borderRadius: "5px" }}>
             <h2>Welcome to the Learning Management System (LMS)</h2>
             <p>Our <strong>Learning Management System (LMS)</strong> is designed to simplify and enhance the management of educational institutions, making learning more accessible and administration more efficient.</p>
 

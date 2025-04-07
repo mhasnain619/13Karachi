@@ -21,6 +21,8 @@ import { FaUser } from "react-icons/fa";
 import { MdContactPage, MdExpandLess, MdExpandMore, MdFeed, MdOutlineAdminPanelSettings } from "react-icons/md";
 import './Dashboard.css'
 import { Avatar, Button, Collapse, Menu, MenuItem, Tooltip } from '@mui/material';
+
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { PiExamFill, PiStudentBold } from "react-icons/pi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { MdOutlineSubject } from "react-icons/md";
@@ -126,7 +128,7 @@ function ResponsiveDrawer(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: "flex", backgroundColor: "#E1E1E2" }}>
+        <Box sx={{ display: "flex", backgroundColor: "#E1E1E2", padding: "5px" }}>
             <CssBaseline />
 
             <AppBar
@@ -174,10 +176,25 @@ function ResponsiveDrawer(props) {
                     />
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <FaUser style={{ color: '#E1E1E2' }} />
-                            </IconButton>
+                            <Box display="flex" alignItems="center" gap={1} onClick={handleOpenUserMenu} sx={{ cursor: 'pointer' }}>
+                                <Avatar
+                                    alt="Helen Walter"
+                                    src="https://randomuser.me/api/portraits/men/1.jpg" // Replace with your image
+                                />
+                                <Box>
+                                    <Typography color="text.secondary" fontWeight={600} fontSize="14px">
+                                        Anaintay
+                                    </Typography>
+                                    <Box display="flex" alignItems="center">
+                                        <Typography color="text.secondary" fontSize="12px">
+                                            Admin
+                                        </Typography>
+                                        <ArrowDropDownIcon fontSize="small" />
+                                    </Box>
+                                </Box>
+                            </Box>
                         </Tooltip>
+
                         <Menu
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
@@ -221,7 +238,7 @@ function ResponsiveDrawer(props) {
                     sx={{
 
                         display: { xs: "block", sm: "none" },
-                        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth }
+                        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth, padding: "5px !important" }
                     }}
                 >
                     {drawer}
@@ -244,12 +261,13 @@ function ResponsiveDrawer(props) {
                     justifyContent: 'start',
                     alignItems: 'center',
                     flexGrow: 1,
-                    p: 3,
+                    p: 1,
+                    mt: 3,
                     width: { sm: `calc(100% - ${drawerWidth}px)` },
                 }}
             >
 
-                {document.location.pathname === '/' && <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', py: 6 }}>
+                {document.location.pathname === '/' && <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '5px', py: 6, mt: 5, backgroundColor: "#FFFFFF", p: 2, borderRadius: "5px" }}>
                     <h3>
                         Welcome to the Learning Management System (LMS)
                     </h3>

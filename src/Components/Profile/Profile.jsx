@@ -19,21 +19,21 @@ import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
-    const auth = getAuth();
+    // const auth = getAuth();
     const navigate = useNavigate()
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    //         setUser(currentUser);
+    //     });
 
-        return () => unsubscribe(); // Cleanup listener
-    }, [auth]);
-    const logout = () => {
-        localStorage.removeItem('uid')
-        navigate('/login')
-    }
+    //     return () => unsubscribe(); // Cleanup listener
+    // }, [auth]);
+    // const logout = () => {
+    //     localStorage.removeItem('uid')
+    //     navigate('/login')
+    // }
     return (
-        <Box sx={{ py: 8 }}>
+        <Box sx={{ py: 8, backgroundColor: "#FFFFFF" }}>
             {user ? (
                 <Card className="user-card">
                     <Grid container spacing={2}>
