@@ -1,178 +1,109 @@
-import React from 'react';
 import {
     Box,
-    Grid,
-    Paper,
+    Typography,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
-    Typography,
+    Paper,
+    Avatar,
     IconButton,
-    Checkbox,
-    Avatar
+    useMediaQuery
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useTheme } from '@mui/material/styles';
 
-// Sample product images (replace with your actual image imports or URLs)
-import CameraLensImg from '../../assets/userimg.png';
+const orders = [
+    {
+        id: '#790841',
+        name: 'Dmitriy Groshev',
+        country: 'Switzerland',
+        payment: 'Credit Card',
+        img: 'https://randomuser.me/api/portraits/men/32.jpg',
+    },
+    {
+        id: '#454489',
+        name: 'Patrick Beverley',
+        country: 'Germany',
+        payment: 'Paypal',
+        img: 'https://randomuser.me/api/portraits/women/44.jpg',
+    },
+    {
+        id: '#594579',
+        name: 'Kevin Greem',
+        country: 'Canada',
+        payment: 'Credit Card',
+        img: 'https://randomuser.me/api/portraits/men/65.jpg',
+    },
+    {
+        id: '#478495',
+        name: 'William Barton',
+        country: 'United States',
+        payment: 'Credit Card',
+        img: 'https://randomuser.me/api/portraits/men/12.jpg',
+    },
+];
 
-
-const RecentOrders = () => {
-    const [selected, setSelected] = React.useState([]);
-
-    const orders = [
-        {
-            id: 1,
-            product: 'Camera Lens',
-            brand: 'Canon Camera',
-            customer: 'Brooklyn Simmons',
-            status: 'Succeed',
-            image: CameraLensImg
-        },
-        {
-            id: 2,
-            product: 'Black Dress',
-            brand: 'Shasmi',
-            customer: 'Savannah Nguyen',
-            status: 'Waiting',
-            image: CameraLensImg
-        },
-        {
-            id: 3,
-            product: 'Argan Oil',
-            brand: 'Moroccan',
-            customer: 'Ronald Richards',
-            status: 'Succeed',
-            image: CameraLensImg
-        },
-        {
-            id: 4,
-            product: 'Parfum',
-            brand: 'Bella Vita',
-            customer: 'Marvin McKinney',
-            status: 'Canceled',
-            image: CameraLensImg
-        },
-    ];
-
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelected = orders.map((order) => order.id);
-            setSelected(newSelected);
-            return;
-        }
-        setSelected([]);
-    };
-
-    const handleClick = (event, id) => {
-        const selectedIndex = selected.indexOf(id);
-        let newSelected = [];
-
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, id);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            );
-        }
-
-        setSelected(newSelected);
-    };
-
-    const isSelected = (id) => selected.indexOf(id) !== -1;
-
-    const getStatusColor = (status) => {
-        switch (status.toLowerCase()) {
-            case 'succeed':
-                return 'success.main';
-            case 'waiting':
-                return 'warning.main';
-            case 'canceled':
-                return 'error.main';
-            default:
-                return 'text.primary';
-        }
-    };
+const LastOrders = () => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <Box sx={{ p: 1 }}>
-            <Typography fontWeight='bold' textAlign='start' variant="h6" gutterBottom>
-                Recent Orders
-            </Typography>
-            <TableContainer >
-                <Table>
+        <Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    mb: 2
+                }}
+            >
+                <Typography variant="h6">Last Orders</Typography>
+                <IconButton>
+                    <MoreVertIcon />
+                </IconButton>
+            </Box>
+
+            {/* Make Table Scrollable on Small Screens */}
+            <TableContainer
+                component={Paper}
+                sx={{ overflowX: 'auto' }}
+            >
+                <Table sx={{ minWidth: 600 }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell padding="checkbox">
-                                <Checkbox
-                                    color="primary"
-                                    indeterminate={selected.length > 0 && selected.length < orders.length}
-                                    checked={orders.length > 0 && selected.length === orders.length}
-                                    onChange={handleSelectAllClick}
-                                />
-                            </TableCell>
-                            <TableCell>Product Name</TableCell>
-                            <TableCell>Customer</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>Action</TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Order No.</TableCell>
+                            <TableCell>Payment Type</TableCell>
+                            <TableCell align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>
+
                     <TableBody>
-                        {orders.map((order) => {
-                            const isItemSelected = isSelected(order.id);
-                            return (
-                                <TableRow
-                                    key={order.id}
-                                    hover
-                                    role="checkbox"
-                                    aria-checked={isItemSelected}
-                                    selected={isItemSelected}
-                                >
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            color="primary"
-                                            checked={isItemSelected}
-                                            onClick={(event) => handleClick(event, order.id)}
-                                        />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                            <Avatar
-                                                src={order.image}
-                                                alt={order.product}
-                                                variant="rounded"
-                                                sx={{ width: 48, height: 48 }}
-                                            />
-                                            <Box>
-                                                <Typography fontSize='small' fontWeight="bold">{order.product}</Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    {order.brand}
-                                                </Typography>
-                                            </Box>
+                        {orders.map((order, index) => (
+                            <TableRow key={index}>
+                                <TableCell>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                        <Avatar src={order.img} />
+                                        <Box>
+                                            <Typography fontWeight="bold">{order.name}</Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {order.country}
+                                            </Typography>
                                         </Box>
-                                    </TableCell>
-                                    <TableCell>{order.customer}</TableCell>
-                                    <TableCell>
-                                        <Typography color={getStatusColor(order.status)}>
-                                            {order.status}
-                                        </Typography>
-                                    </TableCell>
-                                    <TableCell>
-                                        <IconButton>
-                                            <MoreVertIcon />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
+                                    </Box>
+                                </TableCell>
+                                <TableCell>{order.id}</TableCell>
+                                <TableCell>{order.payment}</TableCell>
+                                <TableCell align="center">
+                                    <IconButton>
+                                        <MoreVertIcon />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>
@@ -180,5 +111,4 @@ const RecentOrders = () => {
     );
 };
 
-
-export default RecentOrders;
+export default LastOrders;

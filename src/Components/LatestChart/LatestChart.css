@@ -1,0 +1,54 @@
+.latest-sales-container {
+    /* background-color: white; */
+    padding: 16px;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+    width: 100%;
+}
+
+.latest-sales-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.latest-sales-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.latest-sales-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.latest-sales-buttons button {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+}
+
+.latest-sales-buttons .active {
+    background-color: #14532d;
+    color: white;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    /* Adjust height based on your need */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chart-wrapper {
+        height: 200px;
+    }
+}
